@@ -1,0 +1,200 @@
+
+
+:root {
+  --routine-py: 13px;
+  --checkbox-content-spacing: 10px;
+}
+
+.app-container {
+  --color-accent-1-hsl: calc(var(--accent-h) - 3), calc(var(--accent-s) * 1.02), calc(var(--accent-l) * 1.15);
+  --color-accent-2-hsl: calc(var(--accent-h) - 5), calc(var(--accent-s) * 1.05), calc(var(--accent-l) * 1.29);
+}
+
+/* li element */
+.dr-routine {
+  border: 0.1px solid var(--background-modifier-border);
+  border-radius: 5px;
+  margin-left: 0 !important;
+  padding: var(--routine-py) 0px var(--routine-py) var(--checkbox-content-spacing) !important;
+  margin-bottom: 0px !important;
+  cursor: pointer;
+  font-size: 1.1em;
+  align-items: center;
+}
+
+/* input */
+.dr-routine__input {
+  pointer-events: none;
+  display: none;
+}
+
+/* checkbox */
+.dr-checkbox {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* checkmark */
+.dr-checkbox__checkmark {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: var(--checkbox-size);
+  width: var(--checkbox-size);
+  background-color: var(--color-base-25);
+  border: 1px solid var(--checkbox-border-color);
+  border-radius: 50%;
+  transition: 300ms;
+}
+/* When the checkbox is checked, add a blue background */
+.dr-routine.is-checked .dr-checkbox__checkmark {
+  background-color: var(--checkbox-color);
+  border: 0px solid var(--checkbox-border-color) !important;
+  border-radius: var(--checkbox-radius);
+  animation: pulse 500ms ease-in-out;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.dr-checkbox__checkmark:after {
+  --standard-size: calc(var(--checkbox-size) * 0.77);
+  content: "";
+  display: none;
+  position: absolute;
+  left: calc(0.46 * var(--standard-size));
+  top: calc(0.28 * var(--standard-size));
+  width: calc(0.25 * var(--standard-size));
+  height: calc(0.5 * var(--standard-size));
+  border: solid var(--checkbox-marker-color);
+  border-width: 0 calc(0.15 * var(--standard-size)) calc(0.15 * var(--standard-size)) 0;
+  transform: rotate(45deg);
+}
+/* Show the checkmark when checked */
+.dr-routine.is-checked .dr-checkbox__checkmark:after {
+  display: block;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 hsla(var(--color-accent-hsl), 0.5);
+    rotate: 20deg;
+  }
+
+  50% {
+    rotate: -20deg;
+  }
+
+  75% {
+    box-shadow: 0 0 0 3px hsla(var(--color-accent-1-hsl), 0.3);
+  }
+
+  100% {
+    box-shadow: 0 0 0 5px hsla(var(--color-accent-2-hsl), 0.1);
+    rotate: 0;
+  }
+}
+
+
+/* routine - content */
+.dr-routine__content {
+  display: inline-block;
+  position: relative;
+  user-select: none;
+  margin-left: 8px;
+}
+.dr-routine.is-checked .dr-routine__content {
+  text-decoration: var(--checklist-done-decoration);
+  color: var(--checklist-done-color);
+}
+
+
+
+/* widget */
+:root {
+  /* range: -105% ~ -50% */
+  --water-height-translate-y: -50%;
+}
+
+#dr-progress-widget {
+  position: absolute;
+  top: 100%;
+  right: 1%;
+  z-index: 1000;
+  overflow: hidden;
+  height: 60px;
+  width: 60px;
+  border: 1px solid transparent;
+  box-shadow: 0 0 0 2px hsla(var(--color-accent-hsl), 1);
+  border-radius: 50%;
+}
+
+div.workspace-leaf-content[data-mode="source"] #dr-progress-widget {
+  display: none;
+}
+
+.dr-indicator {
+  --text-shadow-color: #000;
+  --text-shadow-size: 0.5px;
+  position: absolute;
+  top: 32%;
+  left: 3%;
+  z-index: 1001;
+  width: 100%;
+  font-size: 1em;
+  text-align: center;
+  color: rgb(219, 219, 219);
+  /* -webkit-text-stroke: 0.2px var(--text-shadow-color); */
+  text-shadow: calc(-1 * var(--text-shadow-size)) 0 var(--text-shadow-color), 0 var(--text-shadow-size) var(--text-shadow-color), var(--text-shadow-size) 0 var(--text-shadow-color), 0 calc(-1 * var(--text-shadow-size)) var(--text-shadow-color);
+}
+
+.dr-wave-bg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--color-accent-1);
+}
+
+.dr-waves {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: 0;
+  left: 50%;
+  transition: transform 0.5s ease-in-out;
+  transform: translate(-50%, var(--water-height-translate-y));
+  background-color: var(--color-accent-1);
+}
+
+.dr-waves::before,
+.dr-waves::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.dr-waves::before {
+  border-radius: 45%;
+  /* background: hsla(var(--color-accent-1-hsl), 1); */
+  background: rgb(189, 189, 189);
+  animation: wave91234 5s linear infinite;
+}
+
+.dr-waves::after {
+  border-radius: 40%;
+  /* background: hsla(var(--color-accent-2-hsl), 0.5); */
+  background: white;
+  animation: wave91234 10s linear infinite;
+}
+
+@keyframes wave91234 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

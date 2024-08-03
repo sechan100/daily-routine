@@ -1,0 +1,10 @@
+{
+	"id": "daily-routine",
+	"name": "Daily Routine",
+	"version": "1.0.1",
+	"minAppVersion": "0.15.0",
+	"description": "Provdier enhanced checkbox and to create personal daily routine statistics.",
+	"author": "sechan100",
+  "authorEmail": "100sechan.dev@gmail.com",
+	"isDesktopOnly": false
+}

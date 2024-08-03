@@ -1,2 +1,2 @@
-# daliy-routine
+# daiyl-routine
 obsidian plugin
