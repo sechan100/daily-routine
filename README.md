@@ -1,0 +1,2 @@
+# daliy-routine
+obsidian plugin
