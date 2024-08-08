@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { surroundProcessor, SurroundProcessorContext } from "src/utils/surround-processor";
-import { progressModule } from "../module/progress";
 import { routineRegistry } from "../routine-registry";
 import { RoutineLine, searchRoutineLines } from "./source";
 import { decorateRoutineElement, findSectionRoutines, selectRoutines, setGetSectionInfo } from "./preview";
+import { progressModule } from "src/extension/progress";
 
 
 const noRoutine = (ctx: SurroundProcessorContext): boolean => {

@@ -1,18 +1,11 @@
 import { Plugin } from 'obsidian';
-import { progressModule } from 'src/core/module/progress';
-import { setPlugin } from 'src/extension/plugin-service-locator';
-import { surroundProcessorEntryPoint } from 'src/extension/surround-processor';
+import { progressModule } from 'src/extension/progress';
+import { setPlugin } from 'src/utils/plugin-service-locator';
+import { surroundProcessorEntryPoint } from 'src/utils/surround-processor';
 import './src/core/processor/processor'; // 실행 필요
-import { checkAllCommand, uncheckAllCommand } from 'src/core/commands/routine-command';
-import { DailyRoutineSettingTab } from 'src/core/settings/DailyRoutineSettingTab';
-
-export interface DailyRoutinePluginSettings {
-	showProgressWidget: boolean;
-}
-
-const DEFAULT_SETTINGS: DailyRoutinePluginSettings = {
-  showProgressWidget: true,
-}
+import { checkAllCommand, uncheckAllCommand } from 'src/commands/routine-command';
+import { DailyRoutinePluginSettings, DailyRoutineSettingTab, DEFAULT_SETTINGS } from 'src/settings/DailyRoutineSettingTab';
+import { applySettings, initExtensions } from 'src/extension/DailyRoutineExtension';
 
 export default class DailyRoutinePlugin extends Plugin {
 	settings: DailyRoutinePluginSettings;
@@ -23,7 +16,8 @@ export default class DailyRoutinePlugin extends Plugin {
     // plugin locator
     setPlugin(this);
 
-    this.applySettings();
+    // daily routine internal extensions initialization
+    initExtensions(this.settings);
 
     // processor
     this.registerMarkdownPostProcessor(surroundProcessorEntryPoint.bind(this));
@@ -48,11 +42,7 @@ export default class DailyRoutinePlugin extends Plugin {
 	}
 
   async saveSettings() {
-    await this.applySettings();
+    applySettings(this.settings);
     await this.saveData(this.settings);
-  }
-
-  async applySettings() {
-    progressModule.applySettings(this.settings);
   }
 }
