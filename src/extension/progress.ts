@@ -25,7 +25,7 @@ const createWidget = () => {
   return widget;
 };
 
-class ProgressExtension extends DailyRoutineExtension {
+export class ProgressExtension extends DailyRoutineExtension {
   #showProgressWidget: boolean;
   #widgetId: string;
   #widget: HTMLElement;
@@ -41,8 +41,8 @@ class ProgressExtension extends DailyRoutineExtension {
     this.#showProgressWidget = settings.showProgressWidget;
 
     // 일단 파일이 새로 열리면 widget을 지움. 그 이후에 markdown view가 routine을 가지고있다면 프로세서에서 다시 렌더링
-    plugin().registerEvent(plugin().app.workspace.on("active-leaf-change", () => {
-      const hasRoutine = getMarkdownView().containerEl.classList.contains("has-routine");
+    plugin().registerEvent(plugin().app.workspace.on("active-leaf-change", (leaf) => {
+      const hasRoutine = leaf?.view.containerEl.classList.contains("has-routine");
       this.renderWidget(hasRoutine);
     }));  
   }
@@ -67,14 +67,15 @@ class ProgressExtension extends DailyRoutineExtension {
     if(indicator){
       indicator.innerHTML = `${percentage}%`;
     }
+    console.debug(`[Progress Extension]: update progress ${percentage}%`);
   }
 
   // document에 붙이거나 떼기
   renderWidget(render = true) {
     if(render){
+      this.updateProgress();
       if(document.getElementById(this.#widgetId)) return;
       getMarkdownView().containerEl.querySelector(".view-header")?.appendChild(this.#widget);
-      this.updateProgress();
     } else {
       const widget = document.getElementById(this.#widgetId);
       if(widget){
@@ -84,5 +85,3 @@ class ProgressExtension extends DailyRoutineExtension {
     }
   }
 }
-
-export const progressExtension = new ProgressExtension();

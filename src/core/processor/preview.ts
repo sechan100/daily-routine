@@ -1,9 +1,12 @@
 import { plugin } from "src/utils/plugin-service-locator";
 import { Routine, routineElementRegistry, routineRegistry } from "../routine-registry";
 import { MarkdownSectionInformation } from "obsidian";
-import { progressExtension } from "src/extension/progress";
+import { extensionManager } from "src/extension/dr-extension-manager";
+import { ProgressExtension } from "src/extension/progress";
 
 
+
+const progressExt = extensionManager.load(ProgressExtension);
 
 const isNonContentRoutine = (li: HTMLLIElement): boolean => {
   /* span(list-bullet), input, textNode 3개의 자식을 가져야 함
@@ -98,7 +101,7 @@ export const decorateRoutineElement = (element: HTMLLIElement) => {
   // click 후 렌더링 반영후 실행됨(setTimeout 0s)
   const afterClick = (routine: Routine) => {
     routine.sync(element);
-    progressExtension.updateProgress();
+    progressExt.updateProgress();
   }
   
   // register click event
@@ -107,12 +110,10 @@ export const decorateRoutineElement = (element: HTMLLIElement) => {
     event.stopPropagation();
     const routine = getMatchedRoutine(element);
     if(!routine) throw new Error('Routine not found.');
-    // ===
-    console.groupCollapsed('[Routine Click]');
-    console.debug(routine.content, `${routine.isChecked} => ${!routine.isChecked}`, element.isShown());
+    // 아직 업데이트가 되지 않은 상태이기 때문에 routine.isChecked는 과거의 값. 그의 역은 앞으로 변경될 값이다.
+    console.debug("[Routine Click]", `${!routine.isChecked ? "check" : "uncheck"}: ${routine.content}`);
     input.click(); // CLICK!!!
     setTimeout(() => afterClick(routine));
-    console.groupEnd();
     return false;
   });
 }

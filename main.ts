@@ -4,7 +4,7 @@ import { surroundProcessorEntryPoint } from 'src/utils/surround-processor';
 import './src/core/processor/processor'; // 실행 필요
 import { checkAllCommand, uncheckAllCommand } from 'src/commands/routine-command';
 import { DailyRoutinePluginSettings, DailyRoutineSettingTab, DEFAULT_SETTINGS } from 'src/settings/DailyRoutineSettingTab';
-import { applySettings, initExtensions } from 'src/extension/DailyRoutineExtension';
+import { extensionManager } from 'src/extension/dr-extension-manager';
 
 export default class DailyRoutinePlugin extends Plugin {
 	settings: DailyRoutinePluginSettings;
@@ -16,7 +16,7 @@ export default class DailyRoutinePlugin extends Plugin {
     setPlugin(this);
 
     // daily routine internal extensions initialization
-    initExtensions(this.settings);
+    extensionManager.init(this.settings);
 
     // processor
     this.registerMarkdownPostProcessor(surroundProcessorEntryPoint.bind(this));
@@ -37,7 +37,7 @@ export default class DailyRoutinePlugin extends Plugin {
 	}
 
   async saveSettings() {
-    applySettings(this.settings);
+    extensionManager.applySettings(this.settings);
     await this.saveData(this.settings);
   }
 }

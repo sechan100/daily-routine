@@ -3,6 +3,7 @@
 :root {
   --routine-py: 13px;
   --checkbox-content-spacing: 10px;
+  --completed-routine-display: block;
 }
 
 .app-container {
@@ -20,6 +21,10 @@
   cursor: pointer;
   font-size: 1.1em;
   align-items: center;
+}
+
+.dr-routine.is-checked {
+  display: var(--completed-routine-display);
 }
 
 /* input */
