@@ -108,15 +108,12 @@
   color: var(--checklist-done-color);
 }
 
-
-
-/* widget */
-:root {
+/* ************************************************* */
+/* ******************** widget ********************* */
+/* ************************************************* */
+#dr-progress-widget {
   /* range: -105% ~ -50% */
   --water-height-translate-y: -50%;
-}
-
-#dr-progress-widget {
   position: absolute;
   top: 100%;
   right: 1%;
@@ -197,4 +194,10 @@ div.workspace-leaf-content[data-mode="source"] #dr-progress-widget {
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+/* ******* UTILS ******* */
+.hidden {
+  display: none;
 }

@@ -1,7 +1,7 @@
 import { plugin } from "src/utils/plugin-service-locator";
 import { Routine, routineElementRegistry, routineRegistry } from "../routine-registry";
 import { MarkdownSectionInformation } from "obsidian";
-import { progressModule } from "src/extension/progress";
+import { progressExtension } from "src/extension/progress";
 
 
 
@@ -98,7 +98,7 @@ export const decorateRoutineElement = (element: HTMLLIElement) => {
   // click 후 렌더링 반영후 실행됨(setTimeout 0s)
   const afterClick = (routine: Routine) => {
     routine.sync(element);
-    progressModule.update();
+    progressExtension.updateProgress();
   }
   
   // register click event

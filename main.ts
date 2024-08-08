@@ -1,5 +1,4 @@
 import { Plugin } from 'obsidian';
-import { progressModule } from 'src/extension/progress';
 import { setPlugin } from 'src/utils/plugin-service-locator';
 import { surroundProcessorEntryPoint } from 'src/utils/surround-processor';
 import './src/core/processor/processor'; // 실행 필요
@@ -22,11 +21,7 @@ export default class DailyRoutinePlugin extends Plugin {
     // processor
     this.registerMarkdownPostProcessor(surroundProcessorEntryPoint.bind(this));
 
-    // progress widget
-    this.registerEvent(this.app.workspace.on("file-open", () => {
-      progressModule.removeWidget();
-    }))
-
+    // setting tab
     this.addSettingTab(new DailyRoutineSettingTab(this.app, this));
 
     // commands

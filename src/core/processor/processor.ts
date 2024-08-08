@@ -3,23 +3,24 @@ import { surroundProcessor, SurroundProcessorContext } from "src/utils/surround-
 import { routineRegistry } from "../routine-registry";
 import { RoutineLine, searchRoutineLines } from "./source";
 import { decorateRoutineElement, findSectionRoutines, setGetSectionInfo } from "./preview";
-import { progressModule } from "src/extension/progress";
-
+import { progressExtension } from "src/extension/progress";
+import { getMarkdownView } from "src/utils/utils";
 
 const noRoutine = (ctx: SurroundProcessorContext): boolean => {
-  return ctx.get("no-routine");
+  return !ctx.get("has-routine");
 }
 
 // 최초 1회
 surroundProcessor.setPre(ctx => {
   const routines: RoutineLine[] = searchRoutineLines();
   // routine 페이지 여부 설정
-  if(routines.length === 0) ctx.set("no-routine", true);
-  else ctx.set("no-routine", false);
+  const hasRoutine = routines.length > 0;
+  ctx.set("has-routine",hasRoutine);
+  getMarkdownView().containerEl.toggleClass("has-routine", hasRoutine);
 
-  // 루틴이 없으면 위젯을 지우고 종료
+  // 루틴이 없으면 위젯을 지우고 프로세서를 종료
   if(noRoutine(ctx)){
-    progressModule.removeWidget();
+    progressExtension.renderWidget(false);
     return;
   }
   // routineRegistry를 초기화하고 새롭게 세팅
@@ -45,6 +46,5 @@ surroundProcessor.setProcessor((element: HTMLElement, ctx) => {
 // 마지막 1회
 surroundProcessor.setPost(ctx => {
   if(noRoutine(ctx)) return; // 루틴이 없으면 종료
-  progressModule.renderWidget();
-  progressModule.update();
+  progressExtension.renderWidget(true);
 })
