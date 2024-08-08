@@ -2,7 +2,7 @@
 import { surroundProcessor, SurroundProcessorContext } from "src/utils/surround-processor";
 import { routineRegistry } from "../routine-registry";
 import { RoutineLine, searchRoutineLines } from "./source";
-import { decorateRoutineElement, findSectionRoutines, selectRoutines, setGetSectionInfo } from "./preview";
+import { decorateRoutineElement, findSectionRoutines, setGetSectionInfo } from "./preview";
 import { progressModule } from "src/extension/progress";
 
 
