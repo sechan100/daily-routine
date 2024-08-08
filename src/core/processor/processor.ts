@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { surroundProcessor, SurroundProcessorContext } from "src/extension/surround-processor";
+import { surroundProcessor, SurroundProcessorContext } from "src/utils/surround-processor";
 import { progressModule } from "../module/progress";
 import { routineRegistry } from "../routine-registry";
 import { RoutineLine, searchRoutineLines } from "./source";

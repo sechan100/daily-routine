@@ -1,4 +1,4 @@
-import { getMarkdownView } from "src/extension/utils";
+import { getMarkdownView } from "src/utils/utils";
 
 
 // routine
@@ -36,7 +36,7 @@ export const checkAllRoutineLines = (lines: number[], status: "check" | "uncheck
     if(match){
       const newLine = l.replace(match[0], status === "check" ? "> - [x] " : "> - [ ] ");
       e.replaceRange(newLine, {line, ch: 0}, {line, ch: l.length});
-      console.log(`[${status}]: ${newLine}`);
+      console.debug(`[${status}]: ${newLine}`);
     }
   });
   view.requestSave();

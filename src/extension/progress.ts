@@ -1,12 +1,12 @@
-import { getMarkdownView } from "src/extension/utils";
-import { routineElementRegistry, routineRegistry } from "../routine-registry";
-import { DailyRoutinePluginSettings } from "main";
+import { routineRegistry, routineElementRegistry } from "src/core/routine-registry";
+import { getMarkdownView } from "src/utils/utils";
+import { DailyRoutinePluginSettings } from "src/settings/DailyRoutineSettingTab";
 
 
 const widgetId = "dr-progress-widget";
 
 const applySettings = (settings: DailyRoutinePluginSettings) => {
-  console.log("applySettings", settings);
+  console.debug("applySettings", settings);
   if(settings.showProgressWidget){
     widget.style.display = 'block';
   } else {
@@ -56,7 +56,7 @@ const renderWidget = () => {
 }
 
 const removeWidget = () => {
-  console.log("removeWidget");
+  console.debug("removeWidget");
   const widget = getMarkdownView().containerEl.querySelector("#" + progressModule.widgetId);
   if(widget){
     widget.remove();

@@ -1,4 +1,4 @@
-import { plugin } from "src/extension/plugin-service-locator";
+import { plugin } from "src/utils/plugin-service-locator";
 import { Routine, routineElementRegistry, routineRegistry } from "../routine-registry";
 import { MarkdownSectionInformation } from "obsidian";
 import { progressModule } from "../module/progress";

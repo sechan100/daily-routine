@@ -1,7 +1,7 @@
 import { Command } from "obsidian";
-import { routineRegistry } from "../routine-registry";
-import { getMarkdownView } from "src/extension/utils";
-import { checkAllRoutineLines, searchRoutineLines } from "../processor/source";
+import { routineRegistry } from "../core/routine-registry";
+import { getMarkdownView } from "src/utils/utils";
+import { checkAllRoutineLines, searchRoutineLines } from "../core/processor/source";
 
 const findModeSwitchBtn = () => {
   const query = 'button.clickable-icon.view-action';
