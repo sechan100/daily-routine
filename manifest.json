@@ -3,8 +3,9 @@
 	"name": "Daily Routine",
 	"version": "1.0.1",
 	"minAppVersion": "0.15.0",
-	"description": "Provdier enhanced checkbox and to create personal daily routine statistics.",
+	"description": "Transforms daily todos into 'routines' to support your daily productivity.",
 	"author": "sechan100",
   "authorEmail": "100sechan.dev@gmail.com",
+  "repo": "sechan100/daily-routine",
 	"isDesktopOnly": false
 }
